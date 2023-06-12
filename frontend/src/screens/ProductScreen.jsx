@@ -10,6 +10,7 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -19,21 +20,24 @@ import { addToCart } from "../slices/cartSlice";
 // import axios from "axios";
 
 const ProductScreen = () => {
-  
   const { id: productId } = useParams();
-  
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [qty, setQty] = useState(1);
 
-  const addToCartHandler = () => {
-
-  }
-  
   const {
     data: product,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
-  
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    navigate('/cart');
+  };
+
   // const [product, setProduct] = useState({});
 
   // useEffect(() => {
@@ -44,6 +48,8 @@ const ProductScreen = () => {
 
   //   fetchProduct();
   // }, [productId]);
+
+
 
   return (
     <>
