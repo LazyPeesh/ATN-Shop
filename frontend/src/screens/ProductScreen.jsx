@@ -35,7 +35,7 @@ const ProductScreen = () => {
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
-    navigate('/cart');
+    navigate("/cart");
   };
 
   // const [product, setProduct] = useState({});
@@ -48,8 +48,6 @@ const ProductScreen = () => {
 
   //   fetchProduct();
   // }, [productId]);
-
-
 
   return (
     <>
@@ -122,9 +120,9 @@ const ProductScreen = () => {
                           value={qty}
                           onChange={(e) => setQty(Number(e.target.value))}
                         >
-                          {[...Array(product.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
+                          {[...Array(product.countInStock).keys()].map((i) => (
+                            <option key={i + 1} value={i + 1}>
+                              {i + 1}
                             </option>
                           ))}
                         </Form.Control>
