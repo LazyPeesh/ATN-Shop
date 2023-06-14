@@ -21,6 +21,7 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
+  // const [uploading, setUploading] = useState(false);
 
   const {
     data: product,
@@ -74,9 +75,10 @@ const ProductEditScreen = () => {
   };
 
   const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
     const formData = new FormData();
 
-    formData.append("image", e.target.files[0]);
+    formData.append("image", file);
 
     try {
       const res = await uploadProductImage(formData).unwrap();
@@ -84,6 +86,7 @@ const ProductEditScreen = () => {
       setImage(res.image);
     } catch (err) {
       toast.error(err?.data?.message || err.error);
+      refetch();
     }
   };
 
