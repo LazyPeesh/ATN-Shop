@@ -1,17 +1,22 @@
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import { Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Paginate from "./Paginate";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = () => {
-  const { pageNumber } = useParams();
+  const { pageNumber, keyword } = useParams();
 
-  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+  const { data, isLoading, error } = useGetProductsQuery({
+    keyword,
+    pageNumber,
+  });
 
   // const [products, setProducts] = useState([]);
 
@@ -26,6 +31,13 @@ const HomeScreen = () => {
 
   return (
     <>
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to="/" className="btn btn-light mb-4">
+          Go Back
+        </Link>
+      )}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -34,6 +46,7 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
+          <Meta title="APN Store" />
           <h1>Latest Product</h1>
           <Row>
             {data.products.map((product) => (
@@ -42,7 +55,11 @@ const HomeScreen = () => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={data.pages} page={data.page} />
+          <Paginate
+            pages={data.pages}
+            page={data.page}
+            keyword={keyword ? keyword : ""}
+          />
         </>
       )}
     </>

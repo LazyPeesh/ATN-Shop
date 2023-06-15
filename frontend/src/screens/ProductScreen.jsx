@@ -20,6 +20,7 @@ import {
   useCreateReviewMutation,
 } from "../slices/productsApiSlice";
 import { addToCart } from "../slices/cartSlice";
+import Meta from "../components/Meta";
 // import { useState, useEffect } from "react";
 // import axios from "axios";
 
@@ -93,6 +94,8 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
+          <Meta title={product.name} />
+
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />
