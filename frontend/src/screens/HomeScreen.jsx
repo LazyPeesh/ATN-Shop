@@ -46,7 +46,7 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
-          <Meta title="APN Store" />
+          <Meta title="ATN Store" />
           <h1>Latest Product</h1>
           <Row>
             {data.products.map((product) => (
