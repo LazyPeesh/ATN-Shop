@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.0dde0d66.css",
-    "main.js": "/static/js/main.1db15a9f.js",
+    "main.css": "/static/css/main.74762194.css",
+    "main.js": "/static/js/main.e392ea36.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/atn_logo.png": "/static/media/atn_logo.9b9623246b10daf8fba0.png",
     "index.html": "/index.html",
-    "main.0dde0d66.css.map": "/static/css/main.0dde0d66.css.map",
-    "main.1db15a9f.js.map": "/static/js/main.1db15a9f.js.map",
+    "main.74762194.css.map": "/static/css/main.74762194.css.map",
+    "main.e392ea36.js.map": "/static/js/main.e392ea36.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0dde0d66.css",
-    "static/js/main.1db15a9f.js"
+    "static/css/main.74762194.css",
+    "static/js/main.e392ea36.js"
   ]
 }

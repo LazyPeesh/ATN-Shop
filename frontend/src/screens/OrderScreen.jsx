@@ -79,7 +79,6 @@ const OrderScreen = () => {
   function onError(err) {
     toast.error(err.message);
   }
-  
 
   function createOrder(data, actions) {
     return actions.order
@@ -110,7 +109,9 @@ const OrderScreen = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger" />
+    <Message variant="danger">{error}</Message>
+  ) : userInfo._id !== order.user._id && !userInfo.isAdmin ? (
+    <Message variant="danger">Wrong user</Message>
   ) : (
     <>
       <h1>Order {order._id}</h1>
@@ -216,7 +217,7 @@ const OrderScreen = () => {
                           onClick={onApproveTest}
                           style={{ marginBottom: "10px" }}
                         >
-                          Test Pay Order
+                          Pay Order
                         </Button>
 
                         <div>
@@ -225,7 +226,6 @@ const OrderScreen = () => {
                             onApprove={onApprove}
                             onError={onError}
                           ></PayPalButtons>
-
                         </div>
                       </div>
                     )}
