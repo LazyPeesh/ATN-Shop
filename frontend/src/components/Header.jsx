@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import SearchBox from "./SearchBox";
-import logo from "../assets/atn_logo.png";
+import logo from "../assets/logo.png";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -33,16 +33,8 @@ const Header = () => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img
-                src={logo}
-                alt="ATNShop"
-                style={{
-                  width: 50,
-                  height: 50,
-                  marginRight: 10
-                }}
-              />
-              ATN Shop
+              <img src={logo} alt="ProShop" />
+              ProShop
             </Navbar.Brand>
           </LinkContainer>
 
