@@ -24,7 +24,7 @@ function checkFileType(file, callback) {
   if (extname && mimetype) {
     return callback(null, true);
   } else {
-    callback("Image only!");
+    callback(new Error('Images only!'), false);
   }
 }
 
@@ -43,3 +43,4 @@ router.post("/", upload.single("image"), (req, res) => {
 });
 
 export default router;
+
