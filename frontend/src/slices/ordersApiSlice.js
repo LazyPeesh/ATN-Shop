@@ -49,6 +49,16 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
 
+    getOrdersCreatedDate: builder.query({
+      query: ({ orderDate }) => ({
+        url: ORDERS_URL,
+        params: {
+          orderDate,
+        },
+      }),
+      keepUnusedDataFor: 5,
+    }),
+
     deliverOrder: builder.mutation({
       query: (orderId) => ({
         url: `${ORDERS_URL}/${orderId}/deliver`,

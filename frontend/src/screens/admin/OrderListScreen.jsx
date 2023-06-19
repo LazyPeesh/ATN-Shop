@@ -1,15 +1,16 @@
 import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button } from "react-bootstrap";
+import { ListGroup, Form, Row, Col, Table, Button } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { Badge, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Navbar, Container, NavDropdown } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
-import Paginate from "../Paginate";
-import DateSort from "../DateSort";
 
 const OrderListScreen = () => {
+  const [date, setDate] = useState("");
+
   const { orderDate } = useParams();
 
   const {
@@ -29,24 +30,52 @@ const OrderListScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-              <NavDropdown title="Order Date" id="basic-nav-dropdown">
-                {orders.map((order) => (
-                  <LinkContainer
-                    to={`/admin/orderlist/orderDate/${order.createdAt.substring(
-                      0,
-                      10
-                    )}`}
-                  >
-                    <NavDropdown.Item>
+          {!orderDate ? (
+            <Navbar expand="lg" className="bg-body-tertiary">
+              <Container>
+                <NavDropdown title="Order Date" id="basic-nav-dropdown">
+                  {orders.map((order) => (
+                    <LinkContainer
+                      key={order._id}
+                      to={`/admin/orderlist/orderDate/${order.createdAt.substring(
+                        0,
+                        10
+                      )}`}
+                    >
+                      <NavDropdown.Item>
+                        {order.createdAt.substring(0, 10)}
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  ))}
+                </NavDropdown>
+              </Container>
+            </Navbar>
+          ) : (
+            <Link to="/admin/orderlist" className="btn btn-light mb-4">
+              Go Back
+            </Link>
+          )}
+
+          <ListGroup.Item>
+            <Row>
+              <Col>
+                <Form.Control
+                  as="select"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                >
+                  {orders.map((order) => (
+                    <option
+                      key={order._id}
+                      value={order.createdAt.substring(0, 10)}
+                    >
                       {order.createdAt.substring(0, 10)}
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                ))}
-              </NavDropdown>
-            </Container>
-          </Navbar>
+                    </option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Row>
+          </ListGroup.Item>
 
           <Table striped hover responsive className="table-sm">
             <thead>
@@ -63,44 +92,72 @@ const OrderListScreen = () => {
 
             <tbody>
               {orders.map((order) => (
-                // orderDate == order.createdAt.substring(0, 10) &&
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.user && order.user.name}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <FaTimes style={{ color: "red" }} />
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <FaTimes style={{ color: "red" }} />
-                    )}
-                  </td>
+                <>
+                  {date ? (
+                    date === order.createdAt.substring(0, 10) && (
+                      <tr key={order._id}>
+                        <td>{order._id}</td>
+                        <td>{order.user && order.user.name}</td>
+                        <td>{order.createdAt.substring(0, 10)}</td>
+                        <td>{order.totalPrice}</td>
+                        <td>
+                          {order.isPaid ? (
+                            order.paidAt.substring(0, 10)
+                          ) : (
+                            <FaTimes style={{ color: "red" }} />
+                          )}
+                        </td>
+                        <td>
+                          {order.isDelivered ? (
+                            order.deliveredAt.substring(0, 10)
+                          ) : (
+                            <FaTimes style={{ color: "red" }} />
+                          )}
+                        </td>
 
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant="light" className="btn-sm">
-                        Details
-                      </Button>
-                    </LinkContainer>
-                  </td>
-                </tr>
+                        <td>
+                          <LinkContainer to={`/order/${order._id}`}>
+                            <Button variant="light" className="btn-sm">
+                              Details
+                            </Button>
+                          </LinkContainer>
+                        </td>
+                      </tr>
+                    )
+                  ) : (
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>{order.user && order.user.name}</td>
+                      <td>{order.createdAt.substring(0, 10)}</td>
+                      <td>{order.totalPrice}</td>
+                      <td>
+                        {order.isPaid ? (
+                          order.paidAt.substring(0, 10)
+                        ) : (
+                          <FaTimes style={{ color: "red" }} />
+                        )}
+                      </td>
+                      <td>
+                        {order.isDelivered ? (
+                          order.deliveredAt.substring(0, 10)
+                        ) : (
+                          <FaTimes style={{ color: "red" }} />
+                        )}
+                      </td>
+
+                      <td>
+                        <LinkContainer to={`/order/${order._id}`}>
+                          <Button variant="light" className="btn-sm">
+                            Details
+                          </Button>
+                        </LinkContainer>
+                      </td>
+                    </tr>
+                  )}
+                </>
               ))}
             </tbody>
           </Table>
-
-          <DateSort
-            pages={orders.pages}
-            page={orders.page}
-            orderDate={orderDate ? orderDate : ""}
-          />
         </>
       )}
     </>

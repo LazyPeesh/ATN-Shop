@@ -113,14 +113,16 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 // @route   POST /api/orders
 // @access  Private/Admin
 const getOrders = asyncHandler(async (req, res) => {
-  const orderDate = req.query.orderDate;
+  const startDate = new Date(req.query.orderDate);
 
-  // const orders = await Order.find({}).populate("user", "id name");
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 1);
 
-  console.log(orderDate);
+  const orderDate = req.query.orderDate
+    ? { createdAt: { $gte: startDate, $lt: endDate } }
+    : {};
 
-
-  const orders = await Order.find({orderDate}).populate("user", "id name");
+  const orders = await Order.find(orderDate).populate("user", "id name");
   res.status(200).json(orders);
 });
 
