@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";  // page title
 import { Provider } from "react-redux";
 import store from "./store";
 // import "bootstrap/dist/css/bootstrap.min.css";

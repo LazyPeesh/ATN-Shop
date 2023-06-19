@@ -36,6 +36,7 @@ import Meta from "../components/Meta";
 // }, [productId]);
 
 const ProductScreen = () => {
+  
   const { id: productId } = useParams();
 
   const dispatch = useDispatch();
