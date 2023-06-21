@@ -1,5 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
 import { Row, Col } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import Product from "../components/Product";
@@ -17,17 +15,6 @@ const HomeScreen = () => {
     keyword,
     pageNumber,
   });
-
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const { data } = await axios.get("/api/products");
-  //     setProducts(data);
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   return (
     <>
@@ -47,7 +34,11 @@ const HomeScreen = () => {
       ) : (
         <>
           <Meta title="ATN Store" />
-          <h1>Latest Product</h1>
+          {!keyword ? (
+            <h1>Latest Product</h1>
+          ) : (
+            <h1>Search result: {keyword}</h1>
+          )}
           <Row>
             {data.products.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
