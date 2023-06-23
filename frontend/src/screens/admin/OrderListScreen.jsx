@@ -30,52 +30,15 @@ const OrderListScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          {!orderDate ? (
-            <Navbar expand="lg" className="bg-body-tertiary">
-              <Container>
-                <NavDropdown title="Order Date" id="basic-nav-dropdown">
-                  {orders.map((order) => (
-                    <LinkContainer
-                      key={order._id}
-                      to={`/admin/orderlist/orderDate/${order.createdAt.substring(
-                        0,
-                        10
-                      )}`}
-                    >
-                      <NavDropdown.Item>
-                        {order.createdAt.substring(0, 10)}
-                      </NavDropdown.Item>
-                    </LinkContainer>
-                  ))}
-                </NavDropdown>
-              </Container>
-            </Navbar>
-          ) : (
-            <Link to="/admin/orderlist" className="btn btn-light mb-4">
-              Go Back
-            </Link>
-          )}
-
-          <ListGroup.Item>
-            <Row>
-              <Col>
-                <Form.Control
-                  as="select"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                >
-                  {orders.map((order) => (
-                    <option
-                      key={order._id}
-                      value={order.createdAt.substring(0, 10)}
-                    >
-                      {order.createdAt.substring(0, 10)}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Col>
-            </Row>
-          </ListGroup.Item>
+          <Form.Group controlId="date" className="my-2">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Enter price"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
           <Table striped hover responsive className="table-sm">
             <thead>
